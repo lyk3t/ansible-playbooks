@@ -1,0 +1,37 @@
+- name: arch-term
+  hosts: localhost
+  connection: local
+  vars:
+    packages:
+      - python-pip
+  tasks:
+    - name: "clone my dotfiles"
+      command: 'git clone --bare https://github.com/lyk3t/dotfiles.git /home/dom/.dotfiles'
+    - name: "checkout my dotfiles"
+      command: '/usr/bin/git --git-dir=/home/dom/.dotfiles/ --work-tree=/home/dom" checkout'
+    - name: "do not show untracked files in dotfiles"
+      command: '/usr/bin/git --git-dir=/home/dom/.dotfiles/ --work-tree=/home/dom" config --local status.showUntrackedFiles no'
+    - name: "install pacman packages for main terminal usage"
+      become: true
+      pacman:
+        name:
+          - python-pip
+          - python2
+          - zsh
+          - tmux
+          - fzf
+        state: latest
+    - name: "pull git repos for zsh and oh-my-zsh"
+      git:
+        repo: "{{ item.src }}"
+        version: master
+        dest: "{{ item.dest }}"
+      with_items:
+        - { src: 'https://github.com/robbyrussell/oh-my-zsh.git', 
+          dest: '/home/dom/.oh-my-zsh' }
+        - { src: 'https://github.com/zsh-users/zsh-syntax-highlighting.git', 
+          dest: '/home/dom/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting' }
+        - { src: 'https://github.com/junegunn/fzf.git', 
+          dest: 'home/dom/.oh-my-zsh/custom/plugins/fzf' }
+  tags:
+    - arch-term
