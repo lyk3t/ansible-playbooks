@@ -37,10 +37,49 @@
   #   - arch-term
   #
 
+- name: base tooling
+  hosts: localhost
+  connection: local
+  become: true
+  tasks:
+    - name: install base tools with pacman
+      pacman:
+        name:
+          - yay
+          - zsh
+          - fzf
+          - python-pip
+          - python
+          - python2
+          - python2-pip
+          - tmux
+          - git
+          - netcat
+          - rdesktop
+          - remmina
+          - go
+          - nmap
+          - neovim
+          - whois
+          - tree
+          - the_silver_searcher
+          - ripgrep
+          - dnsutils
+          - openvpn
+          - inetutils
+          - nfsutils
+        state: latest
+    - name: install the rest with yay
+      yay:
+        name:
+          -obsidian
+        state: latest
+  tags:
+    arch-base-tools
+        # yay
+       #obsidian
 # Security utils
 
-- name: apps and stuff
-  hosts: localhost
 
 
 # wordlists and stuff
