@@ -18,11 +18,6 @@ sudo mkdir /usr/share/ansible/plugins/modules
 sudo cp yay /usr/share/ansible/plugins/modules
 ```
 
-## add go module
-
-
-
-
 ## Running tags
 
 Run tags:

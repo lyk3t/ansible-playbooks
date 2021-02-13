@@ -150,8 +150,22 @@
       pip:
         name: crackmapexec
         state: latest
+    - name: install autorecon
+      pip:
+        name: git+https://github.com/Tib3rius/AutoRecon.git
+        state: latest
   tags:
     - pip-sec
+
+# TODO: go packages to be installed
+# asset-finder
+# gobuster
+# fuff https://github.com/ffuf/ffuf
+# aquatone 
+# amass
+# fierce/sublist3r, subfinder or something like that
+# nuclei https://github.com/projectdiscovery/nuclei
+
 
 # gems - mainly wpscan
 - name: install gem packages
