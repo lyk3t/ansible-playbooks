@@ -1,37 +1,95 @@
 - name: arch-term
   hosts: localhost
   connection: local
-  vars:
-    packages:
-      - python-pip
+  # vars:
+  #   packages:
+  #     - python-pip
+  # tasks:
+  #   - name: "clone my dotfiles"
+  #     command: 'git clone --bare https://github.com/lyk3t/dotfiles.git /home/dom/.dotfiles'
+  #   - name: "checkout my dotfiles"
+  #     command: '/usr/bin/git --git-dir=/home/dom/.dotfiles/ --work-tree=/home/dom" checkout'
+  #   - name: "do not show untracked files in dotfiles"
+  #     command: '/usr/bin/git --git-dir=/home/dom/.dotfiles/ --work-tree=/home/dom" config --local status.showUntrackedFiles no'
+  #   - name: "install pacman packages for main terminal usage"
+  #     become: true
+  #     pacman:
+  #       name:
+  #         - python-pip
+  #         - python2
+  #         - zsh
+  #         - tmux
+  #         - fzf
+  #       state: latest
+  #   - name: "pull git repos for zsh and oh-my-zsh"
+  #     git:
+  #       repo: "{{ item.src }}"
+  #       version: master
+  #       dest: "{{ item.dest }}"
+  #     with_items:
+  #       - { src: 'https://github.com/robbyrussell/oh-my-zsh.git', 
+  #         dest: '/home/dom/.oh-my-zsh' }
+  #       - { src: 'https://github.com/zsh-users/zsh-syntax-highlighting.git', 
+  #         dest: '/home/dom/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting' }
+  #       - { src: 'https://github.com/junegunn/fzf.git', 
+  #         dest: 'home/dom/.oh-my-zsh/custom/plugins/fzf' }
+  # tags:
+  #   - arch-term
+  #
+
+# Security utils
+- name: wordlists 
+  hosts: localhost
+  connection: local
+  become: true
   tasks:
-    - name: "clone my dotfiles"
-      command: 'git clone --bare https://github.com/lyk3t/dotfiles.git /home/dom/.dotfiles'
-    - name: "checkout my dotfiles"
-      command: '/usr/bin/git --git-dir=/home/dom/.dotfiles/ --work-tree=/home/dom" checkout'
-    - name: "do not show untracked files in dotfiles"
-      command: '/usr/bin/git --git-dir=/home/dom/.dotfiles/ --work-tree=/home/dom" config --local status.showUntrackedFiles no'
-    - name: "install pacman packages for main terminal usage"
-      become: true
-      pacman:
-        name:
-          - python-pip
-          - python2
-          - zsh
-          - tmux
-          - fzf
-        state: latest
-    - name: "pull git repos for zsh and oh-my-zsh"
-      git:
-        repo: "{{ item.src }}"
-        version: master
+    - name: create dirbuster directory
+      file:
+        path: "/usr/share/wordlists/dirbuster"
+        state: directory
+    - name: create dirb directory
+      file:
+        path: "/usr/share/wordlists/dirb"
+        state: directory
+    - name: download wordlists from github
+      get_url: 
+        url: "{{ item.src }}"
         dest: "{{ item.dest }}"
       with_items:
-        - { src: 'https://github.com/robbyrussell/oh-my-zsh.git', 
-          dest: '/home/dom/.oh-my-zsh' }
-        - { src: 'https://github.com/zsh-users/zsh-syntax-highlighting.git', 
-          dest: '/home/dom/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting' }
-        - { src: 'https://github.com/junegunn/fzf.git', 
-          dest: 'home/dom/.oh-my-zsh/custom/plugins/fzf' }
-  tags:
-    - arch-term
+        - { src: 'https://raw.githubusercontent.com/daviddias/node-dirbuster/master/lists/apache-user-enum-1.0.txt',
+            dest: /usr/share/wordlists/dirbuster/apache-user-enum-1.0.txt }
+        - { src: 'https://raw.githubusercontent.com/daviddias/node-dirbuster/master/lists/apache-user-enum-2.0.txt',
+            dest: /usr/share/wordlists/dirbuster/apache-user-enum-2.0.txt }
+        - { src: 'https://raw.githubusercontent.com/daviddias/node-dirbuster/master/lists/directory-list-1.0.txt',
+            dest: /usr/share/wordlists/dirbuster/directory-list-1.0.txt }
+        - { src: 'https://raw.githubusercontent.com/daviddias/node-dirbuster/master/lists/directory-list-2.3-big.txt',
+            dest: /usr/share/wordlists/dirbuster/directory-list-2.3-big.txt }
+        - { src: 'https://raw.githubusercontent.com/daviddias/node-dirbuster/master/lists/directory-list-2.3-medium.txt',
+            dest: /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt }
+        - { src: 'https://raw.githubusercontent.com/daviddias/node-dirbuster/master/lists/directory-list-2.3-small.txt',
+            dest: /usr/share/wordlists/dirbuster/directory-list-2.3-small.txt }
+        - { src: 'https://raw.githubusercontent.com/daviddias/node-dirbuster/master/lists/directory-list-lowercase-2.3-big.txt',
+            dest: /usr/share/wordlists/dirbuster/directory-list-2.3-big.txt }
+        - { src: 'https://raw.githubusercontent.com/daviddias/node-dirbuster/master/lists/directory-list-lowercase-2.3-medium.txt',
+            dest: /usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-medium.txt }
+        - { src: 'https://raw.githubusercontent.com/daviddias/node-dirbuster/master/lists/directory-list-lowercase-2.3-small.txt',
+            dest: /usr/share/wordlists/dirbuster/directory-list-lowercase-2.3-small.txt }
+        - { src: 'https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt',
+            dest: /usr/share/wordlists/rockyou.txt }
+        - { src: 'https://raw.githubusercontent.com/v0re/dirb/master/wordlists/common.txt',
+            dest: /usr/share/wordlists/dirb/common.txt }
+  
+
+
+
+
+    # - name: "install pacman packages for main terminal usage"
+    #   become: true
+    #   pacman:
+    #     name:
+    #       - python-pip
+    #       - python2
+    #       - zsh
+    #       - tmux
+    #       - fzf
+    #     state: latest
