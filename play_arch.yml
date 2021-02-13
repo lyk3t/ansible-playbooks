@@ -1,6 +1,6 @@
-- name: arch-term
-  hosts: localhost
-  connection: local
+# - name: arch-term
+#   hosts: localhost
+#   connection: local
   # vars:
   #   packages:
   #     - python-pip
@@ -38,6 +38,12 @@
   #
 
 # Security utils
+
+- name: apps and stuff
+  hosts: localhost
+
+
+# wordlists and stuff
 - name: wordlists 
   hosts: localhost
   connection: local
@@ -78,9 +84,12 @@
             dest: /usr/share/wordlists/rockyou.txt }
         - { src: 'https://raw.githubusercontent.com/v0re/dirb/master/wordlists/common.txt',
             dest: /usr/share/wordlists/dirb/common.txt }
-  
-
-
+    - name: install seclists-c from AUR
+      yay:
+        name: seclists-c
+        state: latest
+  tags:
+    - wordlists
 
 
     # - name: "install pacman packages for main terminal usage"
