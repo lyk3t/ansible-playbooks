@@ -1,1 +1,22 @@
 # ansible-playbooks
+
+
+Goal is to reduce the overhead of setting up all tools and stuff for CTF and bounty hunting when setting up a new machine.
+
+Installing the dependencies
+`yay -S ansible`
+
+
+## Running tags
+
+Run tags:
+`sudo ansible-playbook play-arch.yml --tags "utils,pip3,go"`
+
+Run whole playbook:
+`sudo ansible-playbook play-arch.yml`
+
+
+## TODOs
+[] setup of dotfiles
+[] dependencies for editor/prompt/shell
+[] dependencies for window manager(s)
