@@ -105,25 +105,26 @@
     - name: and some with yay
       yay:
         name:
-          - smbmap
-          - enum4linux
-          - polenum
-          - scanssh
+          # - smbmap
+          # - enum4linux
+          # - polenum
+          # - scanssh
           - onesixtyone
           - crunch
           - fcrackzip
           - pdfcrack
           - hashcat
           - hashid
-          - recon-ng
+          # - recon-ng
           - aircrack-ng
-          - wireshark
-          - tshark
-          - tcpflow
-          - mdbtools
-          - steghide
-          - beef
-          - burpsuite
+          # - wireshark-git
+          # - tshark
+          # - tcpflow
+          # - mdbtools
+          # - steghide
+          # - beef
+          # - burpsuite
+          - feroxbuster
         state: latest
 
 
