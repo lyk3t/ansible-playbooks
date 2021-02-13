@@ -67,7 +67,9 @@
           - dnsutils
           - openvpn
           - inetutils
-          - nfsutils
+          - nfs-utils
+          - docker
+          - docker-compose
         state: latest
     - name: install the rest with yay
       yay:
