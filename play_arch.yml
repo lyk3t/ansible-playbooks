@@ -152,6 +152,19 @@
   tags:
     - pip-sec
 
+# gems - mainly wpscan
+- name: install gem packages
+  hosts: localhost
+  connection: local
+  become: true
+  tasks:
+    - name: install wpscan
+      gem:
+        name: wpscan
+        state: latest
+  tags:
+    - gems 
+
 # wordlists and stuff
 - name: wordlists 
   hosts: localhost
