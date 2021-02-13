@@ -6,6 +6,12 @@ Goal is to reduce the overhead of setting up all tools and stuff for CTF and bou
 Installing the dependencies
 `yay -S ansible`
 
+ensure that the yay modules can be used
+```
+sudo mkdir /usr/share/ansible/plugins
+sudo mkdir /usr/share/ansible/plugins/modules
+sudo cp yay /usr/share/ansible/plugins/modules
+```
 
 ## Running tags
 

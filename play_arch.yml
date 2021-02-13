@@ -74,7 +74,7 @@
     - name: install the rest with yay
       yay:
         name:
-          -obsidian
+          - obsidian
         state: latest
   tags:
     arch-base-tools
