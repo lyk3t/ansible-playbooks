@@ -78,9 +78,54 @@
         state: latest
   tags:
     arch-base-tools
-        # yay
-       #obsidian
+
 # Security utils
+- name: arch-sec-tools
+  hosts: localhost
+  connection: local
+  become: true
+  tasks:
+    - name: install pentest tooling with pacman
+      pacman:
+        name:
+          - samba
+          - smbclient
+          - metasploit
+          - john
+          - hydra
+          - mysql-clients
+          - sqlite
+          - nbtscan
+          - openldap
+          - scapy
+          - sqlmap
+          - ncrack
+          - ncrack
+        state: latest
+    - name: and some with yay
+      yay:
+        name:
+          - smbmap
+          - enum4linux
+          - polenum
+          - scanssh
+          - onesixtyone
+          - crunch
+          - fcrackzip
+          - pdfcrack
+          - hashcat
+          - hashid
+          - recon-ng
+          - aircrack-ng
+          - wireshark
+          - tshark
+          - tcpflow
+          - mdbtools
+          - steghide
+          - beef
+          - burpsuite
+        state: latest
+
 
 - name: pip-sec
   hosts: localhost
