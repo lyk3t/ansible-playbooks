@@ -82,7 +82,30 @@
        #obsidian
 # Security utils
 
-
+- name: pip-sec
+  hosts: localhost
+  connection: local
+  become: true
+  # vars:
+  #   packages:
+      # - pshtt
+      # - stegcracker
+      # - impacket
+  tasks:
+    - name: install impacket
+      pip:
+        name: impacket
+        # name: "{{ item }}"
+        # executable: pip
+        state: latest
+        # extra_args: --upgrade
+      # loop: "{{ packages }}"
+    - name: install crackmapexec
+      pip:
+        name: crackmapexec
+        state: latest
+  tags:
+    - pip-sec
 
 # wordlists and stuff
 - name: wordlists 
